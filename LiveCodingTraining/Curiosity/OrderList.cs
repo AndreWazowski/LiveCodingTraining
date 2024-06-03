@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace LiveCodingTraining.Curiosity {
     public static class OrderList {
         //Here is not necessary a return, because de original list is modified
-        public static void Order(int[] list) {
+        public static void BubbleSort(int[] list) {
 
             for (int i = 0; i < list.Length; i++) {
                 for (int j = i + 1; j < list.Length; j++) {
