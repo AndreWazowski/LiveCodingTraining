@@ -15,9 +15,7 @@ namespace TreinamentoLiveCoding.TwoPointers {
                         for (int k = 0; k < numbers.Length; k++) {
                             if (i != k && j != k) {
                                 if (numbers[i] + numbers[j] + numbers[k] == 0) {
-                                    var triplet = new List<int> { numbers[i], numbers[j], numbers[k] };
-
-                                    triplet = [.. triplet.Order()];
+                                    var triplet = new List<int> { numbers[i], numbers[j], numbers[k] }.Order().ToList();
 
                                     if (!result.Any(t => t.SequenceEqual(triplet)))
                                         result.Add(triplet);

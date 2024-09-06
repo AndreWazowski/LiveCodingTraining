@@ -18,7 +18,11 @@ namespace LiveCodingTraining.ArraysAndHashing {
             var item = Itens.FirstOrDefault(i => i.Key == key);
 
             if (item == null) return -1;
-            else return item.Value;
+            else {
+                Updatecache(item);
+
+                return item.Value;
+            }
         }
 
 
@@ -28,14 +32,18 @@ namespace LiveCodingTraining.ArraysAndHashing {
             if (Itens.Count != 0) item = Itens.FirstOrDefault(i => i.Key == key);
 
             if (item != null) {
-                Itens.Remove(item);
-                Itens.AddFirst(item);
+                Updatecache(item);
             }
             else {
                 if (Itens.Count == Capacity) Itens.RemoveLast();
 
                 Itens.AddFirst(new LRUCacheItem(key, value));
             }
+        }
+
+        private void Updatecache(LRUCacheItem item) {
+            Itens.Remove(item);
+            Itens.AddFirst(item);
         }
     }
 

@@ -19,8 +19,10 @@ namespace LiveCodingTraining.ArraysAndHashing {
 
         public int Get(int key) {
             if (CacheList.TryGetValue(key, out CacheItem? item)) {
-                item.RemoveLink();
-                item.SetNext(Cache);
+                if (!item.Equals(Cache)) {
+                    item.RemoveLink();
+                    item.SetNext(Cache);
+                }
 
                 UpdateCache(key, item);
 
@@ -43,7 +45,7 @@ namespace LiveCodingTraining.ArraysAndHashing {
                     var itemToRemove = Cache.GetLast();
                     var newLastItem = itemToRemove.Previous;
 
-                    newLastItem.SetNext(null);
+                    newLastItem?.SetNext(null);
 
                     CacheList.Remove(itemToRemove.Key);
                 }
@@ -53,9 +55,11 @@ namespace LiveCodingTraining.ArraysAndHashing {
         }
 
         private void UpdateCache(int key, CacheItem item) {
-            Cache?.SetPrevious(item);
+            if (!item.Equals(Cache)) {
+                Cache?.SetPrevious(item);
 
-            Cache = item;
+                Cache = item;
+            }
 
             CacheList[key] = item;
         }
@@ -76,8 +80,10 @@ namespace LiveCodingTraining.ArraysAndHashing {
         public void Update(int value, CacheItem next) {
             Value = value;
 
-            RemoveLink();
-            SetNext(next);
+            if (Key != next?.Key) {
+                RemoveLink();
+                SetNext(next);
+            }
         }
 
         public void RemoveLink() {
